@@ -1,0 +1,17 @@
+* {
+  font-size: 10px;
+  box-sizing: border-box;
+  font-family: 'DM Sans', sans-serif;
+}
+:root {
+  --main-color: #1098F7;
+  --light-main: #55DDE0;
+  --dark-color: #000000;
+  --light-dark: #2B2C28;
+}
+html {
+  height: -webkit-fill-available;
+}
+body {
+  margin: 0;
+}
