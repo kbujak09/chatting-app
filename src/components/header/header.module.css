@@ -1,8 +1,35 @@
 .header {
   font-size: 2.4rem;
-  text-align: center;
   padding: 1.2rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  color: white;
 }
 .logo {
-  height: 3.2rem;
+  height: 3rem;
+  padding-left: calc(50% - 7rem);
+  transition: padding 1s ease-in-out;
+}
+.loggedIn {
+  background-color: var(--main-color);
+}
+.loggedInLogo {
+  padding-left: calc(100% - 14rem);
+}
+.nav {
+  display: flex;
+  align-items: center;
+  position: absolute;
+}
+.navBtn {
+  animation: fadeIn ease 1s;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

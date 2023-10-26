@@ -15,7 +15,8 @@
   border-radius: 6px;
 }
 .form > input:focus {
-  border: 2px solid var(--main-color);
+  outline: 2px solid var(--main-color);
+  border: 0;
 }
 .form > label {
   font-size: 1.8rem;

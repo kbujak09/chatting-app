@@ -15,3 +15,6 @@ html {
 body {
   margin: 0;
 }
+button:active {
+  transform: translateY(1px);
+}
