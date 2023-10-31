@@ -1,18 +1,12 @@
-import { useNavigate } from 'react-router-dom';
+import Miniature from '../miniature/Miniature';
+import styles from './content.module.css';
 
 const Content = () => {
 
-  const navigate = useNavigate()
-
-  const logOut = () => {
-    localStorage.clear();
-    navigate('/login');
-  }
   return (
-    <>
-      <div>Hello {localStorage.username} :)</div>
-      <button onClick={logOut}>log out</button>
-    </>
+    <div className={styles.content}>
+      <Miniature />
+    </div>
   )
 }
 

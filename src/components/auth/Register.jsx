@@ -12,7 +12,7 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      let res = await fetch('http://192.168.0.18:5000/api/signup', {
+      let res = await fetch('http://192.168.0.15:5000/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'

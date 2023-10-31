@@ -5,6 +5,7 @@
   align-items: center;
   position: relative;
   color: white;
+  transition: background-color 0.3s ease-in-out;
 }
 .logo {
   height: 3rem;

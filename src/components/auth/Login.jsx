@@ -12,7 +12,7 @@ const Login = () => {
   const onSubmit = async(e) => {
     e.preventDefault();
     try {
-      let res = await fetch('http://192.168.0.18:5000/api/login', {
+      let res = await fetch('http://192.168.0.15:5000/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
@@ -53,7 +53,7 @@ const Login = () => {
       </form>
       <hr />
       <div className={styles.noAccount}>
-      <span className={styles.noAccountInfo}>Doesn't have an account?</span>
+      <span className={styles.noAccountInfo}>Don't have an account?</span>
       <button onClick={() => navigate('/signup')} className={styles.button}>Create account</button>
       </div>
     </div>
