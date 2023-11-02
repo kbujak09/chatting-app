@@ -25,6 +25,7 @@
 }
 .navBtn {
   animation: fadeIn ease 1s;
+  width: 2rem;
 }
 @keyframes fadeIn {
   0% {
