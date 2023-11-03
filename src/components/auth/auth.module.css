@@ -7,17 +7,6 @@
   align-items: center;
   gap: 1rem;
 }
-.form > input {
-  font-size: 1.6rem;
-  padding: 0.4rem 0.6rem;
-  width: 80%;
-  border: 1px solid var(--dark-color);
-  border-radius: 6px;
-}
-.form > input:focus {
-  outline: 2px solid var(--main-color);
-  border: 0;
-}
 .form > label {
   font-size: 1.8rem;
 }                          

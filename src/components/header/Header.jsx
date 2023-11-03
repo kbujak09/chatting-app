@@ -7,9 +7,9 @@ import { useState } from 'react';
 
 const Header = () => {
 
-  const [isActive, setIsActive] = useState(false);
-
   const headerStyling = localStorage.token ? `${styles.header} ${styles.loggedIn}` : styles.header;
+  
+  const [isActive, setIsActive] = useState();
   
   const toggleMenu = () => {
     if (isActive) {

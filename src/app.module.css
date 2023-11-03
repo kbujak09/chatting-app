@@ -9,12 +9,22 @@
   --dark-color: #000000;
   --light-dark: #2B2C28;
 }
-html {
-  height: -webkit-fill-available;
-}
-body {
-  margin: 0;
-}
 button:active {
   transform: translateY(1px);
+}
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+input {
+  font-size: 1.6rem;
+  padding: 0.4rem 0.6rem;
+  width: 80%;
+  border: 1px solid var(--dark-color);
+  border-radius: 6px;
+}
+input:focus {
+  outline: 2px solid var(--main-color);
+  border: 0;
 }

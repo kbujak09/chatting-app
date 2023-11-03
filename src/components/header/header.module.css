@@ -6,17 +6,18 @@
   position: relative;
   color: white;
   transition: background-color 0.3s ease-in-out;
+  height: 6vh;
 }
 .logo {
-  height: 3rem;
-  padding-left: calc(50% - 7rem);
+  height: 2.4rem;
+  padding-left: calc(50% - 5.8rem);
   transition: padding 1s ease-in-out;
 }
 .loggedIn {
   background-color: var(--main-color);
 }
 .loggedInLogo {
-  padding-left: calc(100% - 14rem);
+  padding-left: calc(100% - 11.8rem);
 }
 .nav {
   display: flex;

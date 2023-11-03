@@ -1,6 +1,6 @@
 .miniature {
   display: flex;
-  margin: 0 2rem;
+  margin: 0 1.6rem;
   gap: 1.4rem;
   align-items: center;
 }

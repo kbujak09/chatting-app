@@ -5,6 +5,7 @@ import Login from './components/auth/Login';
 import Header from './components/header/Header';
 import Register from './components/auth/Register';
 import Content from './components/content/Content';
+import Conversation from './components/conversation/Conversation';
 
 const App = () => {
 
@@ -24,6 +25,7 @@ const App = () => {
           <Route path='/' element={<Content/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Register/>}/>
+          <Route path='/conversation/:id' element={<Conversation/>}/>
         </Routes>
     </div>
   )

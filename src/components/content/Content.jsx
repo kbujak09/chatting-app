@@ -11,11 +11,10 @@ const Content = () => {
       const res = await fetch(`http://192.168.0.15:5000/api/conversations?userId=${localStorage.id}`);
 
       if (!res.ok) {
-        console.error(`Failed to fetch conversations: ${res.status}`);
+        console.error(`Failed to fetch data: ${res.status}`);
       }
 
       const data = await res.json();
-      console.log(data)
 
       if (data) {
         await setConversations(data);
