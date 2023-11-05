@@ -27,17 +27,17 @@
 .message {
   color: white;
   font-size: 1.4rem;
-  background-color: var(--main-color);
   align-self: baseline;
   padding: 0.6rem 1rem;
   border-radius: 20px;
+  background-color: #3B6392;
 }
 .yourMessage {
   align-self: flex-end;
+  background-color: var(--main-color);
 }
 .addMessage {
   display: flex;
-  justify-content: space-between;
   width: 100%;
   padding: 2rem;
   gap: 1.6rem;
@@ -45,6 +45,20 @@
   color: white;
 }
 .input {
-  flex: 1;
   font-size: 1.4rem;
+  border: 0;
+  height: auto;
+  flex: 1;
+  width: 100%;
+  height: auto;
+  overflow-y: hidden;
+  resize: none;
+}
+.messageForm {
+  display: flex;
+  flex: 1;
+  gap: 1.6rem;
+}
+.sendMessage, .addImage, .back {
+  filter: invert(96%) sepia(100%) saturate(0%) hue-rotate(202deg) brightness(103%) contrast(103%);
 }

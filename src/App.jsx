@@ -1,5 +1,5 @@
 import styles from './app.module.css';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import Login from './components/auth/Login';
 import Header from './components/header/Header';
@@ -10,6 +10,7 @@ import Conversation from './components/conversation/Conversation';
 const App = () => {
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     console.log(localStorage)
@@ -18,9 +19,11 @@ const App = () => {
     }
   },[])
 
+  const isConversationRoute = location.pathname.startsWith('/conversation/');
+
   return (
     <div className={styles.App}>
-        <Header />
+        {!isConversationRoute && <Header />}
         <Routes>
           <Route path='/' element={<Content/>}/>
           <Route path='/login' element={<Login/>}/>

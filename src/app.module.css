@@ -17,7 +17,7 @@ button:active {
   flex-direction: column;
   height: 100%;
 }
-input {
+input, textarea {
   font-size: 1.6rem;
   padding: 0.4rem 0.6rem;
   width: 80%;

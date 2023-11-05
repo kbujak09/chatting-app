@@ -27,7 +27,7 @@ const Header = () => {
           <img className={styles.navBtn} src={menu} alt="menu" />
         </div>
         }
-        <img className={localStorage.token ? `${styles.logo} ${styles.loggedInLogo}`: styles.logo } src=  {!localStorage.token ? logo : logo_white} alt="logo" />
+        <img className={localStorage.token ? `${styles.logo} ${styles.loggedInLogo}`: styles.logo } src={!localStorage.token ? logo : logo_white} alt="logo" />
       </header>
       <Menu isActive={isActive} setIsActive={setIsActive}/>
     </>
