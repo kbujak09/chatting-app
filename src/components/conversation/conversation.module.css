@@ -2,7 +2,8 @@
   background-color: var(--main-color);
   display: flex;
   flex-direction: column;
-  flex: 1;
+  overflow: hidden;
+  height: 100vh;
 }
 .user {
   display: flex;
@@ -16,13 +17,20 @@
 .avatar {
   width: 4rem;
 }
+.messagesContainer {
+  overflow-y: hidden;
+  flex: 1;
+}
 .messages {
   background-color: white;
   color: var(--dark-color);
-  padding: 2rem 1.2rem;
+  padding: 1rem 1.2rem;
   display: flex;
   flex-direction: column-reverse;
-  flex: 1;
+  gap: 0.2rem;
+  max-height: 100%;
+  overflow-y: scroll;
+  height: 100%;
 }
 .message {
   color: white;
@@ -61,4 +69,8 @@
 }
 .sendMessage, .addImage, .back {
   filter: invert(96%) sepia(100%) saturate(0%) hue-rotate(202deg) brightness(103%) contrast(103%);
+}
+.sendButton {
+  background-color: transparent;
+  border: 0;
 }

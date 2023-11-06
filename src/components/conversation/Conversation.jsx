@@ -6,26 +6,82 @@ import avatar from '../../assets/avatar.png';
 import send from '../../assets/send.svg';
 import image from '../../assets/image.svg';
 import back from '../../assets/back.svg';
+import io from 'socket.io-client';
+
+const socket = io.connect("http://localhost:5000");
 
 const Conversation = () => {
 
   const textareaRef = useRef();
-
   const location = useLocation();
-
   const navigate = useNavigate();
+  const initialHeight = '2.8rem';
+  const conversationId = location.pathname.split('/')[2];
+  const token = localStorage.getItem("token");
+  const bearer = `Bearer ${token}`;
 
   const [data, setData] = useState();
 
   const [inputValue, setInputValue] = useState('');
 
-  const initialHeight = '2.8rem';
+  const [from, setFrom] = useState('');
 
-  const conversationId = location.pathname.split('/')[2];
+  const [to, setTo] = useState('');
+
+  const [messages, setMessages] = useState([]);
+
+  const joinRoom = () => {
+    socket.emit('join_room', conversationId);
+  }
+
+  const sendMessage = async (e) => {
+    e.preventDefault();
+    if (!from || !to || !inputValue) {
+      return;
+    }
+    try {
+      const res = await fetch('http://192.168.0.15:5000/api/messages', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: bearer,
+        },
+        body: JSON.stringify({from: from, to: to, text: inputValue})
+      })
+      if (!res.ok) {
+        console.error(`Failed to send a message: ${res.status}`);
+      }
+      const data = await res.json();
+
+      if (data) {
+        setInputValue('');
+        await setMessages([{ 
+          'from': data.from, 
+          'to': data.to, 
+          'text': data.text,
+          'createdAt': new Date()
+        }, ...messages])
+        const newMessage = {
+          from: data.from,
+          to: data.to,
+          text: data.text,
+          createdAt: data.createdAt 
+        }
+        socket.emit('send_message', {newMessage, conversationId})
+      }
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
 
   const fetchConversation = async () => {
     try {
-      const res = await fetch(`http://192.168.0.15:5000/api/conversations/${conversationId}`);
+      const res = await fetch(`http://192.168.0.15:5000/api/conversations/${conversationId}`, {
+        headers: {
+          Authorization: bearer,
+        }
+      });
 
       if (!res.ok) {
         console.error(`Failed to fetch conversations: ${res.status}`);
@@ -35,7 +91,11 @@ const Conversation = () => {
 
       if (data) {
         await setData(data);
-        console.log(data)
+        console.log(data.conversation.members.filter(member => member._id !== localStorage.id)[0])
+        setTo(data.conversation.members.filter(member => member._id !== localStorage.id)[0]);
+        setFrom(data.conversation.members.filter(member => member._id === localStorage.id)[0]);
+        setMessages([...data.conversation.messages])
+        joinRoom();
       }
     }
     catch (err) {
@@ -71,8 +131,14 @@ const Conversation = () => {
       textareaRef.current.style.height = initialHeight;
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
-  }, [inputValue]);
+  }, [inputValue]);         
   
+  useEffect(() => {
+    socket.on('receive_message', (data) => {  
+      console.log(data);
+      setMessages(prevMessages => [data, ...prevMessages]);
+    })
+  }, [socket])
 
   return (
     data && 
@@ -82,10 +148,14 @@ const Conversation = () => {
         <img className={styles.avatar} src={avatar} alt="avatar" />
         {getUsername(data.conversation.members)}
       </div>
-      <div className={styles.messages}>{getMessages(data.conversation.messages)}</div>
+      <div className={styles.messagesContainer}>
+        <div className={styles.messages}>
+          {getMessages(messages)}
+        </div>
+      </div>
       <div className={styles.addMessage}>
         <img src={image} alt="addImage" className={styles.addImage}/>
-        <form className={styles.messageForm}>
+        <form onSubmit={sendMessage} className={styles.messageForm}>
           <textarea 
             ref={textareaRef}
             value={inputValue} 
@@ -95,7 +165,7 @@ const Conversation = () => {
             type="text"
             style={{ height: initialHeight }}>
           </textarea>
-          <img src={send} alt="send" className={styles.sendMessage} />
+          <button className={styles.sendButton}><img src={send} alt="send" className={styles.sendMessage} /></button>
         </form>
       </div>
     </div>

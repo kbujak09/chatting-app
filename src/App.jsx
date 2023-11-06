@@ -6,6 +6,9 @@ import Header from './components/header/Header';
 import Register from './components/auth/Register';
 import Content from './components/content/Content';
 import Conversation from './components/conversation/Conversation';
+import io from 'socket.io-client';
+
+const socket = io.connect("http://localhost:5000");
 
 const App = () => {
 

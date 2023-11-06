@@ -4,11 +4,18 @@ import { useState, useEffect } from 'react';
 
 const Content = () => {
 
+  const token = localStorage.getItem("token");
+  const bearer = `Bearer ${token}`;
+
   const [conversations, setConversations] = useState();
 
   const fetchConversations = async () => {
     try {
-      const res = await fetch(`http://192.168.0.15:5000/api/conversations?userId=${localStorage.id}`);
+      const res = await fetch(`http://192.168.0.15:5000/api/conversations?userId=${localStorage.id}`, {
+        headers: {
+          Authorization: bearer,
+        }
+      });
 
       if (!res.ok) {
         console.error(`Failed to fetch data: ${res.status}`);

@@ -22,13 +22,10 @@ const Miniature = ({data}) => {
   const navigate = useNavigate();
   
   function convertTime(dateString) {
-    console.log(dateString)
     const inputDate = new Date(dateString);
     const currentDate = new Date();
     const timeDifference = currentDate - inputDate;
     const hoursAgo = timeDifference / (1000 * 60 * 60);
-
-    console.log(timeDifference)
   
     let formattedDate;
   
@@ -48,6 +45,8 @@ const Miniature = ({data}) => {
   }
 
   const message = data.messages[0];
+
+  console.log(message)
  
   return (
     <div onClick={handleClick} className={styles.miniature}>
