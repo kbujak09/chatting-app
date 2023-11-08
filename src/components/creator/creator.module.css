@@ -1,0 +1,48 @@
+.creator {
+  position: fixed;
+  bottom: 2rem;
+  right: 2.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 3.6rem;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  background-color: var(--main-color);
+  border: 2px solid white;
+  cursor: pointer;
+}
+.menu {
+  position: fixed;
+  bottom: calc(2vh + 5rem);
+  right: 2vh;
+  width: 14rem;
+  height: 0rem;
+  background-color: var(--main-color);
+  border-radius: 5px;
+  overflow: hidden;
+  transition: height 0.4s ease-in-out;
+}
+.slideIn {
+  height: 4rem;
+}
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+}
+@media (min-width: 1200px) {
+  .creator {
+    right: calc(2.4rem + 30%);
+  }
+  .menu {
+    right: calc(2vh + 30%)
+  }
+}

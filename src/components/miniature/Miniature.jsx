@@ -1,6 +1,7 @@
 import styles from './miniature.module.css';
 import avatar from '../../assets/avatar.png';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const getUsername = (arr) => {
   const user = arr.filter(item => item._id !== localStorage.id);
@@ -20,6 +21,8 @@ const getAvatar = (arr) => {
 const Miniature = ({data}) => {
 
   const navigate = useNavigate();
+
+  const [message , setMessage] = useState('');
   
   function convertTime(dateString) {
     const inputDate = new Date(dateString);
@@ -39,24 +42,27 @@ const Miniature = ({data}) => {
   
     return formattedDate;
   }
+  
 
   const handleClick = () => {
-    navigate(`/conversation/${data._id}`)
+    navigate(`/conversation/${data._id}/${data.members.filter(member => member._id !== localStorage.id)[0]._id}`)
   }
 
-  const message = data.messages[0];
 
-  console.log(message)
+  useEffect(() => {
+    console.log(data)
+    setMessage(data.messages[0]);
+  }, [])
  
   return (
-    <div onClick={handleClick} className={styles.miniature}>
+    <div onClick={handleClick} key={data._id} className={styles.miniature}>
       <div className={styles.avatar}><img src={avatar} alt='avatar' /></div>
       <div className={styles.info}>
         <div className={styles.name}>{getUsername(data.members)}</div>
         <div className={styles.container}>
-          <div className={styles.text}>{message.from._id === localStorage.id ? `You: ${message.text.substring(0, 30)}` : message.text.substring(0, 30)}</div>
-          <span className={styles.dot}>•</span>
-          <div className={styles.date}>{convertTime(message.createdAt)}</div>
+          <div className={styles.text}>{message ? message.from._id === localStorage.id ? `You: ${message.text.substring(0, 30)}` : message.text.substring(0, 30) : null}</div>
+          {message ? <span className={styles.dot}>•</span> : null}
+          <div className={styles.date}>{message ? convertTime(message.createdAt) : null}</div>
         </div>
       </div>
     </div>

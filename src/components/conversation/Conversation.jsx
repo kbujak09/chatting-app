@@ -17,8 +17,10 @@ const Conversation = () => {
   const navigate = useNavigate();
   const initialHeight = '2.8rem';
   const conversationId = location.pathname.split('/')[2];
+  const toId = location.pathname.split('/')[3]
   const token = localStorage.getItem("token");
   const bearer = `Bearer ${token}`;
+  const rooms = [toId, localStorage.id];
 
   const [data, setData] = useState();
 
@@ -30,8 +32,8 @@ const Conversation = () => {
 
   const [messages, setMessages] = useState([]);
 
-  const joinRoom = () => {
-    socket.emit('join_room', conversationId);
+  const joinRoom = (user) => {
+    socket.emit('join_room', user);
   }
 
   const sendMessage = async (e) => {
@@ -67,7 +69,7 @@ const Conversation = () => {
           text: data.text,
           createdAt: data.createdAt 
         }
-        socket.emit('send_message', {newMessage, conversationId})
+        socket.emit('send_message', {newMessage, toId})
       }
     }
     catch (err) {
@@ -91,11 +93,9 @@ const Conversation = () => {
 
       if (data) {
         await setData(data);
-        console.log(data.conversation.members.filter(member => member._id !== localStorage.id)[0])
-        setTo(data.conversation.members.filter(member => member._id !== localStorage.id)[0]);
-        setFrom(data.conversation.members.filter(member => member._id === localStorage.id)[0]);
+        setTo(data.conversation.members.filter(member => member._id !== localStorage.id)[0]._id);
+        setFrom(data.conversation.members.filter(member => member._id === localStorage.id)[0]._id);
         setMessages([...data.conversation.messages])
-        joinRoom();
       }
     }
     catch (err) {
@@ -105,10 +105,10 @@ const Conversation = () => {
 
   const getMessages = (arr) => {
     return arr.map(message => {
-      if (message.from === localStorage.id) {
+      if (message.from === localStorage.id && message.to === toId) {
         return <div key={message._id} className={`${styles.message} ${styles.yourMessage}`}>{message.text}</div>
       }
-      else {
+      else if (message.to === localStorage.id && message.from === toId) {
         return <div key={message._id} className={styles.message}>{message.text}</div>
       }
     })
@@ -123,6 +123,7 @@ const Conversation = () => {
   };
 
   useEffect(() => {
+    joinRoom(rooms);
     fetchConversation();
   }, [])
 
@@ -131,14 +132,28 @@ const Conversation = () => {
       textareaRef.current.style.height = initialHeight;
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
-  }, [inputValue]);         
+  }, [inputValue]);
   
+  // const receiveMessage = (data) => {  
+  //   console.log(data)
+  //   const arr = [data.from, data.to]
+  //   if (arr.includes(from) && arr.includes(to)) {
+  //     setMessages(prevMessages => [data, ...prevMessages]);
+  //   }
+  // }
+
   useEffect(() => {
-    socket.on('receive_message', (data) => {  
-      console.log(data);
-      setMessages(prevMessages => [data, ...prevMessages]);
+    socket.on('receive_message', () => {
+      fetchConversation();
     })
+
+    return () => {
+      socket.off('receive_message', (data) => {
+        fetchConversation();
+      })
+    }
   }, [socket])
+
 
   return (
     data && 

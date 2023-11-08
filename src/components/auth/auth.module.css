@@ -38,3 +38,8 @@ hr {
   font-size: 1.6rem;
   text-align: center;
 }
+@media (min-width: 1200px) {
+  .form {
+    margin-top: 2vh;
+  }
+}

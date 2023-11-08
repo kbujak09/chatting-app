@@ -1,12 +1,12 @@
 .header {
   font-size: 2.4rem;
-  padding: 1.2rem;
+  padding: 1.2rem 2rem;
   display: flex;
   align-items: center;
   position: relative;
   color: white;
   transition: background-color 0.3s ease-in-out;
-  height: 6vh;
+  height: 7vh;
 }
 .logo {
   height: 2.4rem;
@@ -26,4 +26,5 @@
 }
 .navBtn {
   width: 2rem;
+  cursor: pointer;
 }

@@ -6,6 +6,7 @@ import Header from './components/header/Header';
 import Register from './components/auth/Register';
 import Content from './components/content/Content';
 import Conversation from './components/conversation/Conversation';
+import Users from './components/users/Users';
 import io from 'socket.io-client';
 
 const socket = io.connect("http://localhost:5000");
@@ -31,7 +32,8 @@ const App = () => {
           <Route path='/' element={<Content/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Register/>}/>
-          <Route path='/conversation/:id' element={<Conversation/>}/>
+          <Route path='/conversation/:id/:userId' element={<Conversation/>}/>
+          <Route path='/users' element={<Users/>}/>
         </Routes>
     </div>
   )

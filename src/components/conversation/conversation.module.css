@@ -4,18 +4,27 @@
   flex-direction: column;
   overflow: hidden;
   height: 100vh;
+  animation: slideIn 0.3s ease;
+}
+@keyframes slideIn {
+  0% {
+    transform: translateY(2rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 .user {
   display: flex;
   font-size: 2.4rem;
   align-items: center;
   gap: 1rem;
-  padding: 1.6rem 2rem;
+  padding: 1.2rem 2rem;
   background-color: var(--main-color);
   color: white;
 }
 .avatar {
-  width: 4rem;
+  width: 4.8rem;
 }
 .messagesContainer {
   overflow-y: hidden;
@@ -39,6 +48,7 @@
   padding: 0.6rem 1rem;
   border-radius: 20px;
   background-color: #3B6392;
+  max-width: 48%;
 }
 .yourMessage {
   align-self: flex-end;
@@ -47,7 +57,7 @@
 .addMessage {
   display: flex;
   width: 100%;
-  padding: 2rem;
+  padding: 1.6rem;
   gap: 1.6rem;
   align-items: center;
   color: white;
@@ -68,9 +78,18 @@
   gap: 1.6rem;
 }
 .sendMessage, .addImage, .back {
+  cursor: pointer;
   filter: invert(96%) sepia(100%) saturate(0%) hue-rotate(202deg) brightness(103%) contrast(103%);
 }
 .sendButton {
   background-color: transparent;
   border: 0;
+}
+@media (min-width: 1200px) {
+  .user {
+    padding: 2rem;
+  }
+  .addMessage {
+    padding: 2.4rem 1.6rem;
+  }
 }

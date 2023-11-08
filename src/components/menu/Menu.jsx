@@ -12,8 +12,7 @@ const Menu = ({isActive, setIsActive}) => {
 
   return (
     <div className={isActive ? `${styles.menu} ${styles.active}` : styles.menu}>
-      <div className={styles.actions}></div>
-      <div className={styles.logOut}><button onClick={logOut}>log out</button></div>
+      <div onClick={logOut} className={styles.logOut}>log out</div>
     </div>
   )
 }
