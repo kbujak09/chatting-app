@@ -7,9 +7,6 @@ import Register from './components/auth/Register';
 import Content from './components/content/Content';
 import Conversation from './components/conversation/Conversation';
 import Users from './components/users/Users';
-import io from 'socket.io-client';
-
-const socket = io.connect("http://localhost:5000");
 
 const App = () => {
 
@@ -17,8 +14,7 @@ const App = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(localStorage)
-    if (!localStorage.token) {
+    if (!localStorage.id) {
       navigate('/login');
     }
   },[])

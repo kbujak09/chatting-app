@@ -2,9 +2,9 @@
   position: absolute;
   width: 10rem;
   height: 0vh;
-  top: 5vh;
+  top: 6vh;
   left: 1rem;
-  border-radius: 20px;
+  border-radius: 5px;
   background-color: var(--main-color);
   transition: height 0.4s ease-out;
   display: flex;

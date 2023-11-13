@@ -34,14 +34,14 @@
   z-index: 1002;
 }
 .content > label {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 600;
   letter-spacing: 0.1rem;
 }
 .btn {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   border: 0px;
-  padding: 0.4rem 1rem; 
+  padding: 0.6rem 1rem; 
   border-radius: 5px;
   background-color: var(--main-color);
   color: white;

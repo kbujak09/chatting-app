@@ -2,24 +2,31 @@ import Miniature from '../miniature/Miniature';
 import styles from './content.module.css';
 import Creator from '../creator/Creator';
 import { useState, useEffect } from 'react';
+import ReactLoading from 'react-loading';
+
+
 import io from 'socket.io-client';
 
-const socket = io.connect("http://localhost:5000");
+const socket = io.connect("https://blue-wildflower-7641.fly.dev", {
+  transports: ['websocket'],
+  });
 
 const Content = () => {
 
   const token = localStorage.getItem("token");
   const bearer = `Bearer ${token}`;
 
-  const [conversations, setConversations] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   const joinRoom = (user) => {
     socket.emit('join_room', user);
   }
 
+  const [conversations, setConversations] = useState();
+
   const fetchConversations = async () => {
     try {
-      const res = await fetch(`http://192.168.0.15:5000/api/conversations?userId=${localStorage.id}`, {
+      const res = await fetch(`https://blue-wildflower-7641.fly.dev/api/conversations?userId=${localStorage.id}`, {
         headers: {
           Authorization: bearer,
         }
@@ -41,35 +48,51 @@ const Content = () => {
     }
   }
 
+  const room = localStorage.id;
+
   useEffect(() => {
-    fetchConversations();
+    joinRoom(room);
+    fetchConversations().then(setIsLoading(false));
   }, []);
 
-  const receiveMessage = async(data) => {
-    try {
-      joinRoom(localStorage.id);
-      fetchConversations();
-    }
-    catch (err) {
-      console.log(err)
-    }
+  
+  const newMessage = (message) => {
+    console.log(message)
+    setConversations(prevArray =>
+      prevArray.map(item =>
+        item.messages[0].from === message.from && item.messages[0].to === message.to
+          ? { ...item, messages: [message] }
+          : item
+      )
+    );
   }
 
+  const getConversations = (conversations) => {
+    return (
+      conversations.map(item => {
+        return <Miniature data={item}/>
+      })
+    )
+  }
 
   useEffect(() => {
-    socket.on('receive_message', receiveMessage);
+    socket.on('receive_message', (data) => newMessage(data));
 
     return () => {
-      socket.off('receive_message', receiveMessage);
+      socket.off('receive_message', (data) => newMessage(data));
     }
   },[socket])
 
   return (
+    !isLoading ? 
     conversations && <div className={styles.content}>
-      {conversations && conversations.map(item => {
-        return <Miniature data={item}/>
-      })}
+      {getConversations(conversations)}
       <Creator />
+    </div>
+    :
+    <div className={styles.loader}>
+      <ReactLoading type={'spin'} color={'#cccccc'} width={'5rem'}/>
+      <div>Loading...</div>
     </div>
   )
 }

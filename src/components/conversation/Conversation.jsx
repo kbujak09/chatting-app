@@ -8,7 +8,9 @@ import image from '../../assets/image.svg';
 import back from '../../assets/back.svg';
 import io from 'socket.io-client';
 
-const socket = io.connect("http://localhost:5000");
+const socket = io.connect("https://blue-wildflower-7641.fly.dev", {
+  transports: ['websocket'],
+});
 
 const Conversation = () => {
 
@@ -42,7 +44,7 @@ const Conversation = () => {
       return;
     }
     try {
-      const res = await fetch('http://192.168.0.15:5000/api/messages', {
+      const res = await fetch('https://blue-wildflower-7641.fly.dev/api/messages', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +81,7 @@ const Conversation = () => {
 
   const fetchConversation = async () => {
     try {
-      const res = await fetch(`http://192.168.0.15:5000/api/conversations/${conversationId}`, {
+      const res = await fetch(`https://blue-wildflower-7641.fly.dev/api/conversations/${conversationId}`, {
         headers: {
           Authorization: bearer,
         }
@@ -142,15 +144,15 @@ const Conversation = () => {
   //   }
   // }
 
+  const getNewMessages = (data) => {
+    setMessages((prevMessages) => [data, ...prevMessages])
+  }
+
   useEffect(() => {
-    socket.on('receive_message', () => {
-      fetchConversation();
-    })
+    socket.on('receive_message', getNewMessages)
 
     return () => {
-      socket.off('receive_message', (data) => {
-        fetchConversation();
-      })
+      socket.off('receive_message', getNewMessages)
     }
   }, [socket])
 

@@ -14,7 +14,7 @@ const Users = ({setSearchActive}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://192.168.0.15:5000/api/conversations', {
+      const res = await fetch('https://blue-wildflower-7641.fly.dev/api/conversations', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
@@ -26,7 +26,6 @@ const Users = ({setSearchActive}) => {
       const data = await res.json();
 
       if (data) {
-        console.log(data);  
         navigate(`/conversation/${data.conversation._id}/${data.conversation.members.filter(member => member !== localStorage.id)[0]}`)
       }
     }

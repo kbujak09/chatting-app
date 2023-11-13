@@ -28,12 +28,12 @@ const Miniature = ({data}) => {
     const inputDate = new Date(dateString);
     const currentDate = new Date();
     const timeDifference = currentDate - inputDate;
-    const hoursAgo = timeDifference / (1000 * 60 * 60);
+    let hoursAgo = timeDifference / (1000 * 60 * 60);
   
     let formattedDate;
   
     if (hoursAgo < 24) {
-      formattedDate = inputDate.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+      formattedDate = inputDate.toLocaleString('en-UK', { hour: '2-digit', minute: '2-digit', hour12: false });
     } else if (hoursAgo < 24 * 365.25) {
       formattedDate = inputDate.toLocaleString('en-UK', { day: 'numeric', month: '2-digit', year: '2-digit'});
     } else {
@@ -42,17 +42,14 @@ const Miniature = ({data}) => {
   
     return formattedDate;
   }
-  
 
   const handleClick = () => {
     navigate(`/conversation/${data._id}/${data.members.filter(member => member._id !== localStorage.id)[0]._id}`)
   }
 
-
   useEffect(() => {
-    console.log(data)
     setMessage(data.messages[0]);
-  }, [])
+  }, [data.messages])
  
   return (
     <div onClick={handleClick} key={data._id} className={styles.miniature}>
@@ -60,7 +57,7 @@ const Miniature = ({data}) => {
       <div className={styles.info}>
         <div className={styles.name}>{getUsername(data.members)}</div>
         <div className={styles.container}>
-          <div className={styles.text}>{message ? message.from._id === localStorage.id ? `You: ${message.text.substring(0, 30)}` : message.text.substring(0, 30) : null}</div>
+          <div className={styles.text}>{message ? message.from === localStorage.id ? `You: ${message.text.substring(0, 20)}` : message.text.substring(0, 30) : null}</div>
           {message ? <span className={styles.dot}>•</span> : null}
           <div className={styles.date}>{message ? convertTime(message.createdAt) : null}</div>
         </div>

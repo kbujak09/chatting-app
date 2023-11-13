@@ -27,12 +27,12 @@
   width: 4.8rem;
 }
 .messagesContainer {
-  overflow-y: hidden;
+  overflow: hidden;
   flex: 1;
 }
 .messages {
   background-color: white;
-  color: var(--dark-color);
+  color: var(--dark-color); 
   padding: 1rem 1.2rem;
   display: flex;
   flex-direction: column-reverse;
@@ -49,6 +49,7 @@
   border-radius: 20px;
   background-color: #3B6392;
   max-width: 48%;
+  word-wrap: break-word;
 }
 .yourMessage {
   align-self: flex-end;
