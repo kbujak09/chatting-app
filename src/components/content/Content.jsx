@@ -40,7 +40,8 @@ const Content = () => {
 
 
       if (data) {
-        await setConversations(data);
+        const sorted = data.sort((a, b) => new Date(b.messages[0].createdAt) - new Date(a.messages[0].createdAt))
+        await setConversations(sorted);
       }
     }
     catch (err) {
@@ -57,14 +58,13 @@ const Content = () => {
 
   
   const newMessage = (message) => {
-    console.log(message)
     setConversations(prevArray =>
       prevArray.map(item =>
         item.messages[0].from === message.from && item.messages[0].to === message.to
           ? { ...item, messages: [message] }
           : item
-      )
-    );
+      ).sort((a, b) => new Date(b.messages[0].createdAt) - new Date(a.messages[0].createdAt))
+    )
   }
 
   const getConversations = (conversations) => {
