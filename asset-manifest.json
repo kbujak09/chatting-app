@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/chatting-app-frontend/static/css/main.99a2242c.css",
-    "main.js": "/chatting-app-frontend/static/js/main.b65099be.js",
+    "main.js": "/chatting-app-frontend/static/js/main.4ac07e29.js",
     "static/media/logo.png": "/chatting-app-frontend/static/media/logo.244717c9661b0c03bc14.png",
     "static/media/avatar.png": "/chatting-app-frontend/static/media/avatar.a5a0f364058f49cba020.png",
     "static/media/logo_white.png": "/chatting-app-frontend/static/media/logo_white.e267955c9b111e41806f.png",
@@ -12,10 +12,10 @@
     "static/media/send.svg": "/chatting-app-frontend/static/media/send.d4dfad2d9d6532fa3da96f5b79db1548.svg",
     "static/media/back.svg": "/chatting-app-frontend/static/media/back.0fc4b3fb66f8f2a6cbe24308ad8d2140.svg",
     "main.99a2242c.css.map": "/chatting-app-frontend/static/css/main.99a2242c.css.map",
-    "main.b65099be.js.map": "/chatting-app-frontend/static/js/main.b65099be.js.map"
+    "main.4ac07e29.js.map": "/chatting-app-frontend/static/js/main.4ac07e29.js.map"
   },
   "entrypoints": [
     "static/css/main.99a2242c.css",
-    "static/js/main.b65099be.js"
+    "static/js/main.4ac07e29.js"
   ]
 }
